@@ -1,13 +1,8 @@
-# moketfloor.com static clone
+# Moket Floor
 
-Static copy of the supplied `moketfloor.com` pages and assets.
+Static Arabic RTL product catalogue for مؤسسة موكيت للأرضيات.
 
-## Routes
-
-- `/`
-- `/sjad-alsjad`
-- `/mfrwshat`
-- `/mwkyt`
-- `/hand-soap`
-
-The project can be served directly by any static hosting provider.
+- Product pages with Saudi-focused metadata and structured data
+- WebP images sourced from the supplied catalogue
+- WhatsApp enquiries instead of prices, cart or checkout
+- Sitemap, robots.txt, canonical URLs and responsive layout

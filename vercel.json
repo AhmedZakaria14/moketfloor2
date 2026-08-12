@@ -1,0 +1,85 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/hand-soap/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/classic-cap/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/creative-course-session/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/face-serum/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/group-fitness-class/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/handmade-vase/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/individual-coaching-session/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/intro-language-tutoring-session/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/set-of-plates/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/sunglasses/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/wooden-chair/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    },
+    {
+      "source": "/wool-sweater/",
+      "destination": "/sjad-alsjad/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
