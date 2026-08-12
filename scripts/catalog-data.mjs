@@ -1,6 +1,6 @@
 export const site = {
-  name: 'موكيت للأرضيات',
-  legalName: 'مؤسسة موكيت للأرضيات',
+  name: 'مفروشات موكيت أرضيات',
+  legalName: 'مفروشات موكيت أرضيات',
   origin: 'https://moketfloor2.vercel.app',
   phone: '+966508479176',
   whatsapp: '966508479176',

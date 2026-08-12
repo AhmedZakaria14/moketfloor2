@@ -1,12 +1,12 @@
 {
-  "name": "مؤسسة موكيت للأرضيات",
-  "short_name": "موكيت للأرضيات",
+  "name": "مفروشات موكيت أرضيات",
+  "short_name": "مفروشات موكيت أرضيات",
   "lang": "ar-SA",
   "dir": "rtl",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#0f172a",
+  "background_color": "#F5EFEA",
+  "theme_color": "#2A2320",
   "icons": [
     {
       "src": "/assets/favicon.svg",

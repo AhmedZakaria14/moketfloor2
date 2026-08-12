@@ -1,6 +1,6 @@
 # Moket Floor
 
-Static Arabic RTL product catalogue for مؤسسة موكيت للأرضيات.
+Static Arabic RTL product catalogue for مفروشات موكيت أرضيات.
 
 - Product pages with Saudi-focused metadata and structured data
 - WebP images sourced from the supplied catalogue

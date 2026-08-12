@@ -330,3 +330,7 @@ write(join(repoRoot, 'README.md'), `# Moket Floor\n\nStatic Arabic RTL product c
 write(join(repoRoot, 'assets', 'favicon.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0f172a"/><path d="M13 45V19h8l11 15 11-15h8v26h-8V31L32 46 21 31v14z" fill="#38bdf8"/></svg>`);
 
 console.log(`Built ${products.length} product pages with ${selectedIds.length} optimized images.`);
+
+// The catalogue builder owns image optimisation; the original-layout builder
+// always runs last so rebuilding product media cannot replace the site design.
+await import('./build-original-layout.mjs');
