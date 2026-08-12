@@ -107,7 +107,7 @@ const head = ({ title, description, path = '/', keywords = [], image, schema = [
   <link rel="alternate" hreflang="ar-SA" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/original-site.css">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${site.name}">
@@ -130,7 +130,7 @@ const shell = ({ title, description, path, keywords, image, schema, active, body
   ${header(active)}
   <main id="content">${body}</main>
   ${footer()}
-  <script src="/assets/js/site.js" defer></script>
+  <script src="/assets/js/original-site.js" defer></script>
 </body>
 </html>`;
 
