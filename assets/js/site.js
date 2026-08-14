@@ -28,8 +28,8 @@
   const catalogSearch = document.querySelector('#catalog-search');
   const empty = document.querySelector('.empty-results');
   let category = 'all';
-
   const normalize = (value) => value.trim().toLocaleLowerCase('ar');
+
   const applyCatalogFilters = () => {
     const query = normalize(catalogSearch?.value || '');
     let visible = 0;
@@ -57,6 +57,23 @@
     applyCatalogFilters();
   }
 
+  const revealItems = [...document.querySelectorAll('.reveal')];
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const observer = new IntersectionObserver((entries, instance) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        instance.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+    revealItems.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
+      observer.observe(item);
+    });
+  } else {
+    revealItems.forEach((item) => item.classList.add('is-visible'));
+  }
+
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
     const image = lightbox.querySelector('img');
@@ -69,7 +86,7 @@
         lightbox.showModal();
       });
     });
-    lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());
+    lightbox.querySelector('.lightbox-close')?.addEventListener('click', () => lightbox.close());
     lightbox.addEventListener('click', (event) => {
       const rect = lightbox.getBoundingClientRect();
       if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) lightbox.close();
