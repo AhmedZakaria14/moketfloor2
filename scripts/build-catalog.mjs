@@ -50,10 +50,7 @@ for (const id of selectedIds) {
   const padded = String(id).padStart(3, '0');
   const sourceName = sourceFiles.find((name) => name.startsWith(`${padded}-`));
   if (!sourceName) throw new Error(`Missing source image ${id}`);
-  // Two early blobs were published empty and cached immutably by the CDN.
-  // Their versioned filenames keep rebuilt media from resolving to that cache.
-  const cacheSafeSuffix = [39, 146].includes(id) ? '-fixed' : '';
-  const outputName = `${imagePrefix(id)}${cacheSafeSuffix}-${padded}.webp`;
+  const outputName = `${imagePrefix(id)}-${padded}.webp`;
   const source = join(sourceRoot, sourceName);
   const output = join(imageRoot, outputName);
   execFileSync('convert', [source, '-auto-orient', '-strip', '-resize', '1400x1400>', '-quality', '82', output]);

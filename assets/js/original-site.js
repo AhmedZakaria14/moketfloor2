@@ -28,8 +28,8 @@
   const catalogSearch = document.querySelector('#catalog-search');
   const empty = document.querySelector('.empty-results');
   let category = 'all';
-  const normalize = (value) => value.trim().toLocaleLowerCase('ar');
 
+  const normalize = (value) => value.trim().toLocaleLowerCase('ar');
   const applyCatalogFilters = () => {
     const query = normalize(catalogSearch?.value || '');
     let visible = 0;
@@ -57,14 +57,6 @@
     applyCatalogFilters();
   }
 
-  const siteHeader = document.querySelector('.site-header');
-  const syncHeaderState = () => siteHeader?.classList.toggle('is-scrolled', window.scrollY > 12);
-  syncHeaderState();
-  window.addEventListener('scroll', syncHeaderState, { passive: true });
-
-  // Reveal motion is CSS-only and never hides content. This keeps every template
-  // usable when JavaScript is delayed, blocked, or unavailable.
-
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
     const image = lightbox.querySelector('img');
@@ -77,7 +69,7 @@
         lightbox.showModal();
       });
     });
-    lightbox.querySelector('.lightbox-close')?.addEventListener('click', () => lightbox.close());
+    lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.close());
     lightbox.addEventListener('click', (event) => {
       const rect = lightbox.getBoundingClientRect();
       if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) lightbox.close();
