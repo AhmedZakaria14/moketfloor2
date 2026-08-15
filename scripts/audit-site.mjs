@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-  if (entry.name === '.git' || entry.name === 'scripts' || entry.name === 'reference-export') return [];
+  if (entry.name === '.git' || entry.name === 'scripts') return [];
   const path = join(dir, entry.name);
   return entry.isDirectory() ? walk(path) : [path];
 });
@@ -36,7 +36,7 @@ for (const path of htmlFiles) {
   const description = html.match(/<meta name="description" content="([^"]*)">/)?.[1] || '';
   if (description.length < 105 || description.length > 180) fail(file, `description length ${description.length}`);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)">/)?.[1] || '';
-  if (!canonical.startsWith('https://moketfloor.com/')) fail(file, 'bad canonical');
+  if (!canonical.startsWith('https://moketfloor2.vercel.app/')) fail(file, 'bad canonical');
   if (canonicals.has(canonical)) fail(file, `duplicate canonical with ${canonicals.get(canonical)}`);
   canonicals.set(canonical, file);
   if (!/<meta name="robots" content="index,follow/.test(html)) fail(file, 'page is not indexable');
