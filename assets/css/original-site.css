@@ -194,7 +194,7 @@ h1, h2, h3 { line-height: 1.35; }
   .offer-bar { font-size: 12px; }
   .site-header, .header-layout { height: 67px; }
   .header-layout { grid-template-columns: 55px 1fr 40px; gap: 12px; }
-  .header-whatsapp { display: grid; grid-column: 2; justify-self: end; }
+  .header-whatsapp { display: none; }
   .menu-button { display: flex; grid-column: 3; }
   .main-nav { position: fixed; z-index: 95; inset: 107px 0 auto; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 18px 16px 28px; background: var(--white); box-shadow: 0 14px 30px rgb(0 0 0 / 12%); }
   .main-nav.open { display: flex; }

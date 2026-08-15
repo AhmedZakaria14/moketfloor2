@@ -107,7 +107,7 @@ const head = ({ title, description, path = '/', keywords = [], image, schema = [
   <link rel="alternate" hreflang="ar-SA" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/css/original-site.css">
+  <link rel="stylesheet" href="/assets/css/original-site.css?v=20260815-1">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${site.name}">
@@ -236,7 +236,13 @@ write(join(root, 'site.webmanifest'), JSON.stringify({ name: site.legalName, sho
 
 // Keep legacy product paths useful without changing the visible store structure.
 const redirects = ['hand-soap', 'classic-cap', 'creative-course-session', 'face-serum', 'group-fitness-class', 'handmade-vase', 'individual-coaching-session', 'intro-language-tutoring-session', 'set-of-plates', 'sunglasses', 'wooden-chair', 'wool-sweater'];
-write(join(root, 'vercel.json'), JSON.stringify({ trailingSlash: true, redirects: redirects.map((source) => ({ source: `/${source}/`, destination: '/sjad-alsjad/', permanent: true })), headers: [{ source: '/assets/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] }] }, null, 2));
+const assetHeaders = [
+  { source: '/assets/css/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }] },
+  { source: '/assets/js/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }] },
+  { source: '/assets/fonts/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+  { source: '/assets/images/(.*)', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
+];
+write(join(root, 'vercel.json'), JSON.stringify({ trailingSlash: true, redirects: redirects.map((source) => ({ source: `/${source}/`, destination: '/sjad-alsjad/', permanent: true })), headers: assetHeaders }, null, 2));
 
 // Assert the generated pages do not accidentally reintroduce commerce controls.
 for (const page of [join(root, 'index.html'), join(root, 'sjad-alsjad', 'index.html'), ...products.map((product) => join(root, 'products', product.slug, 'index.html'))]) {

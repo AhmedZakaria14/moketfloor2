@@ -152,7 +152,7 @@ const head = ({ title, description, path = '/', keywords = [], image, schema = [
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/site.css?v=20260815-1">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${site.name}">
