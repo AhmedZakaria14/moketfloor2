@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://moketfloor2.vercel.app/sitemap.xml
+Sitemap: https://moketfloor.com/sitemap.xml
