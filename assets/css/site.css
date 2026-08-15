@@ -845,3 +845,43 @@ body {
   .site-footer .footer-layout > div:hover,
   .site-footer .footer-grid > div:hover { transform: none; }
 }
+
+
+/* Homepage stability patch: the existing trust markup needs an explicit grid. */
+.home-page .trust-grid {
+  width: min(calc(100% - 32px), 1240px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+  margin: 0 auto;
+}
+.home-page .trust-grid > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.home-page .trust-grid > div > span:last-child {
+  display: grid;
+  gap: 5px;
+}
+.home-page .trust-number {
+  flex: 0 0 auto;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 400;
+}
+.home-page .trust-grid strong {
+  color: var(--ref-text);
+  font-size: 15px;
+}
+.home-page .trust-grid small {
+  color: var(--ref-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+@media (max-width: 760px) {
+  .home-page .trust-grid {
+    grid-template-columns: 1fr;
+  }
+}
