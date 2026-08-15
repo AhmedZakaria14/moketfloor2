@@ -62,27 +62,8 @@
   syncHeaderState();
   window.addEventListener('scroll', syncHeaderState, { passive: true });
 
-  const revealItems = [...document.querySelectorAll('.reveal')];
-  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    revealItems.forEach((item) => item.classList.add('motion-pending'));
-    const observer = new IntersectionObserver((entries, instance) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        entry.target.classList.remove('motion-pending');
-        instance.unobserve(entry.target);
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
-    revealItems.forEach((item, index) => {
-      item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
-      observer.observe(item);
-    });
-  } else {
-    revealItems.forEach((item) => {
-      item.classList.add('is-visible');
-      item.classList.remove('motion-pending');
-    });
-  }
+  // Reveal motion is CSS-only and never hides content. This keeps every template
+  // usable when JavaScript is delayed, blocked, or unavailable.
 
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
