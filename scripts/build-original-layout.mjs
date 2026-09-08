@@ -108,7 +108,7 @@ const head = ({ title, description, path = '/', keywords = [], image, schema = [
   <link rel="alternate" hreflang="ar-SA" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/css/original-site.css?v=20260908-cart">
+  <link rel="stylesheet" href="/assets/css/original-site.css?v=20260908-categories">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${site.name}">
@@ -131,8 +131,8 @@ const shell = ({ title, description, path, keywords, image, schema, active, body
   ${header(active)}
   <main id="content">${body}</main>
   ${footer()}
-  <script src="/assets/js/original-site.js?v=20260908-cart" defer></script>
-  <script src="/assets/js/cart.js?v=20260908-cart" defer></script>
+  <script src="/assets/js/original-site.js?v=20260908-categories" defer></script>
+  <script src="/assets/js/cart.js?v=20260908-categories" defer></script>
 </body>
 </html>`;
 
@@ -144,6 +144,17 @@ const card = (product, index = 0) => {
     <div class="product-card-content"><p class="product-category">${esc(product.category)}</p><h3><a href="/products/${product.slug}/">${esc(product.cardName)}</a></h3><div class="product-card-links"><a href="/products/${product.slug}/">عرض التفاصيل</a><button class="add-to-cart" type="button" data-add-cart="${esc(product.slug)}">${icon('cart')} إضافة إلى السلة</button></div></div>
   </article>`;
 };
+
+const categories = [
+  {slug: 'carpet', name: 'الموكيت', image: 1, intro: 'موكيت المكاتب والمساجد والرول، مع كتالوجات الألوان والتصاميم.', ids: ['carpet-tiles-50x50-offices', 'carpet-tiles-catalog', 'mosque-carpet-prayer-lines', 'wall-to-wall-carpet-rolls']},
+  {slug: 'rugs', name: 'السجاد', image: 101, intro: 'سجاد منزلي ومشايات وسجاد صلاة بتصاميم تناسب مختلف المساحات.', ids: ['prayer-rugs-mihrab-designs', 'modern-home-rugs-runners']},
+  {slug: 'vinyl', name: 'الفينيل', image: 24, intro: 'أرضيات فينيل بتصاميم خشبية وخيارات للمرافق والمشروعات.', ids: ['belgian-leoline-vinyl-wood', 'antibacterial-vinyl-4mm']},
+  {slug: 'grass', name: 'العشب الصناعي', image: 15, intro: 'عشب صناعي للحدائق والملاعب والجلسات الخارجية.', ids: ['artificial-grass-gardens-playgrounds']},
+];
+const categoryCards = (active = '') => `<nav class="category-grid" aria-label="فئات المنتجات">${categories.map(category => {
+  const cover = images.get(category.image);
+  return `<a class="category-tile" href="/categories/${category.slug}/" ${active === category.slug ? 'aria-current="page"' : ''}><div class="category-thumbnail"><img src="${cover.src}" width="${cover.width}" height="${cover.height}" alt="${esc(category.name)}" loading="lazy" decoding="async"></div><div class="category-tile-copy"><h3>${category.name}</h3><p>${category.intro}</p><span>تصفح المنتجات ${icon('arrow')}</span></div></a>`;
+}).join('')}</nav>`;
 
 const hero = images.get(76) || images.get(2);
 const homeBody = `
@@ -158,8 +169,10 @@ const homeBody = `
     </div>
   </section>
   <section class="products-section">
-    <div class="section-title"><p>اختيارات</p><h2>فئات</h2></div>
-    <div class="product-grid">${products.map(card).join('')}</div>
+    <div class="section-title"><p>اختر ما يناسب مساحتك</p><h2>تسوق حسب الفئة</h2></div>
+    ${categoryCards()}
+  </section>
+  <section class="products-section"><div class="section-title"><p>من مجموعتنا</p><h2>تصفح المنتجات</h2></div><div class="product-grid">${products.map(card).join('')}</div>
   </section>`;
 
 write(join(root, 'index.html'), shell({
@@ -183,12 +196,22 @@ const collectionSchema = {
 };
 const catalogBody = `
   <section class="simple-page-head"><div><p>تسوق</p><h1>السجاد والموكيت والأرضيات</h1></div></section>
+  <section class="products-section"><div class="section-title"><h2>تسوق حسب الفئة</h2></div>${categoryCards()}</section>
   <section class="catalog-section"><div class="catalog-tools"><form class="catalog-search" role="search"><label class="sr-only" for="catalog-search">ابحث في المنتجات</label><input id="catalog-search" type="search" placeholder="ابحث في المنتجات..."><span>${icon('search')}</span></form><div class="filter-row"><button class="active" data-filter="all">الكل</button>${[...new Set(products.map((product) => product.category))].map((category) => `<button data-filter="${esc(category)}">${esc(category)}</button>`).join('')}</div></div><div class="product-grid catalog-grid">${products.map(card).join('')}</div><p class="empty-results" hidden>لا توجد منتجات مطابقة لبحثك.</p></section>`;
 write(join(root, 'sjad-alsjad', 'index.html'), shell({ title: 'تسوق موكيت وفينيل وسجاد وعشب صناعي في السعودية', description: 'تصفح كتالوج موكيت مربعات وفينيل بلجيكي وموكيت مساجد وسجاد منزلي وعشب صناعي بصور المنتجات وتفاصيلها، ثم استفسر عن المنتج مباشرة عبر واتساب.', path: '/sjad-alsjad/', keywords: ['تسوق موكيت', 'كتالوج سجاد', 'أرضيات السعودية', 'فينيل', 'عشب صناعي'], image: images.get(products[0].imageIds[0]).src, schema: [collectionSchema], active: 'catalog', body: catalogBody }));
 
+for (const category of categories) {
+  const selected = products.filter(product => category.ids.includes(product.slug));
+  const path = `/categories/${category.slug}/`;
+  const description = `تسوق ${category.name} من مفروشات موكيت أرضيات في السعودية. ${category.intro} شاهد الصور والمواصفات وأضف اختياراتك إلى سلة الطلب.`;
+  const body = `<nav class="breadcrumbs" aria-label="مسار الصفحة"><a href="/">الرئيسية</a><span>/</span><a href="/sjad-alsjad/">تسوق</a><span>/</span><span>${category.name}</span></nav><section class="simple-page-head category-page-head"><div><p>تسوق حسب الفئة</p><h1>${category.name}</h1><p>${category.intro}</p></div></section><section class="catalog-section"><div class="category-results-heading"><h2>منتجات ${category.name}</h2><a href="/sjad-alsjad/">عرض جميع المنتجات</a></div><div class="product-grid">${selected.map(card).join('')}</div></section><section class="products-section"><div class="section-title"><h2>اكتشف باقي الفئات</h2></div>${categoryCards(category.slug)}</section>`;
+  const schema = [{'@context': 'https://schema.org', '@type': 'CollectionPage', name: category.name, url: `${site.origin}${path}`, mainEntity: {'@type': 'ItemList', itemListElement: selected.map((product, index) => ({'@type': 'ListItem', position: index + 1, name: product.cardName, url: `${site.origin}/products/${product.slug}/`}))}}, {'@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'الرئيسية', item: site.origin }, { '@type': 'ListItem', position: 2, name: 'تسوق', item: `${site.origin}/sjad-alsjad/` }, { '@type': 'ListItem', position: 3, name: category.name, item: `${site.origin}${path}` }]}];
+  write(join(root, 'categories', category.slug, 'index.html'), shell({title: `تسوق ${category.name} في السعودية | مفروشات موكيت أرضيات`, description, path, image: images.get(category.image).src, schema, active: 'catalog', body}));
+}
+
 const aboutBody = `
   <section class="simple-page-head"><div><p>عن الموقع</p><h1>مفروشات موكيت أرضيات</h1></div></section>
-  <section class="content-section about-section"><div class="two-column"><div class="content-image"><img src="${images.get(37).src}" width="${images.get(37).width}" height="${images.get(37).height}" alt="تركيب موكيت مربعات في مكتب" fetchpriority="high"></div><div><p class="kicker">رؤيتنا</p><h2>أرضيات مناسبة لكل مساحة</h2><p>نوفر خيارات مختارة من موكيت المكاتب، الفينيل، موكيت المساجد، السجاد، موكيت الرول والعشب الصناعي للمنازل والشركات والمشروعات.</p><p>يعرض الموقع صور كل خامة واسمها ووصفها الصحيح، مع توضيح الاستخدامات والمواصفات المتاحة. ولأن التوفر ونطاق التركيب يختلفان من مشروع لآخر، يتم الاستفسار مباشرة عبر واتساب من دون أسعار أو سلة شراء.</p><a class="button button-brown" href="${wa()}" target="_blank" rel="noopener">تواصل معنا</a></div></div></section>`;
+  <section class="content-section about-section"><div class="two-column"><div class="content-image"><img src="${images.get(37).src}" width="${images.get(37).width}" height="${images.get(37).height}" alt="تركيب موكيت مربعات في مكتب" fetchpriority="high"></div><div><p class="kicker">رؤيتنا</p><h2>أرضيات مناسبة لكل مساحة</h2><p>نوفر خيارات مختارة من موكيت المكاتب، الفينيل، موكيت المساجد، السجاد، موكيت الرول والعشب الصناعي للمنازل والشركات والمشروعات.</p><p>يعرض الموقع صور كل خامة واسمها ووصفها الصحيح، مع توضيح الاستخدامات والمواصفات المتاحة. ولأن التوفر ونطاق التركيب يختلفان من مشروع لآخر، يمكنك جمع المنتجات في سلة الطلب وإرسالها إلى الفريق لتأكيد الأسعار والتوفر عبر واتساب.</p><a class="button button-brown" href="${wa()}" target="_blank" rel="noopener">تواصل معنا</a></div></div></section>`;
 write(join(root, 'mfrwshat', 'index.html'), shell({ title: 'عن مفروشات موكيت أرضيات | توريد وتركيب في السعودية', description: 'تعرف على موقع مفروشات موكيت أرضيات وخيارات توريد وتركيب موكيت المكاتب والفينيل وموكيت المساجد والسجاد والعشب الصناعي للمنازل والمشروعات.', path: '/mfrwshat/', keywords: ['عن مفروشات موكيت أرضيات', 'توريد موكيت', 'تركيب أرضيات السعودية'], image: images.get(37).src, active: 'about', body: aboutBody }));
 
 const contactBody = `
@@ -231,7 +254,7 @@ for (const product of products) {
 const notFoundDescription = 'الصفحة المطلوبة غير موجودة أو تغيّر رابطها. يمكنك العودة إلى متجر مفروشات موكيت أرضيات وتصفح منتجات الموكيت والفينيل والسجاد ثم الاستفسار عبر واتساب.';
 write(join(root, '404.html'), shell({ title: 'الصفحة غير موجودة | مفروشات موكيت أرضيات السعودية', description: notFoundDescription, path: '/404.html', image: hero.src, body: '<section class="not-found"><div><strong>404</strong><h1>الصفحة غير موجودة</h1><p>يمكنك العودة إلى المتجر وتصفح المنتجات المتاحة.</p><a class="button button-brown" href="/sjad-alsjad/">العودة إلى المتجر</a></div></section>' }));
 
-const paths = ['/', '/sjad-alsjad/', '/mfrwshat/', '/mwkyt/', ...products.map((product) => `/products/${product.slug}/`)];
+const paths = ['/', '/sjad-alsjad/', '/mfrwshat/', '/mwkyt/', ...categories.map(category => `/categories/${category.slug}/`), ...products.map((product) => `/products/${product.slug}/`)];
 write(join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${paths.map((path) => `  <url><loc>${site.origin}${path}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod><changefreq>${path === '/' ? 'weekly' : 'monthly'}</changefreq><priority>${path === '/' ? '1.0' : path.includes('/products/') ? '0.8' : '0.7'}</priority></url>`).join('\n')}\n</urlset>\n`);
 write(join(root, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.origin}/sitemap.xml\n`);
 write(join(root, 'site.webmanifest'), JSON.stringify({ name: site.legalName, short_name: site.name, lang: 'ar-SA', dir: 'rtl', start_url: '/', display: 'standalone', background_color: '#F5EFEA', theme_color: '#2A2320', icons: [{ src: '/assets/favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any' }] }, null, 2));
