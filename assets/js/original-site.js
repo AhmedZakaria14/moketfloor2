@@ -1,4 +1,53 @@
 (() => {
+  const mobileHeaderStyle = document.createElement('style');
+  mobileHeaderStyle.textContent = `
+    @media (max-width: 760px) {
+      .header-layout {
+        grid-template-columns: 44px minmax(0, 1fr) 44px !important;
+        gap: 10px !important;
+      }
+      .site-logo {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: center;
+      }
+      .menu-button {
+        grid-column: 1 !important;
+        grid-row: 1;
+        justify-self: start;
+      }
+      .header-cart {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+        width: 44px;
+        height: 44px;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border-radius: 50%;
+      }
+      .header-cart svg {
+        width: 23px;
+        height: 23px;
+      }
+      .header-cart [data-cart-count] {
+        position: absolute;
+        top: 1px;
+        right: 0;
+        min-width: 18px;
+        height: 18px;
+        display: grid;
+        place-items: center;
+        padding: 0 4px;
+        border: 2px solid var(--white);
+        font-size: 10px;
+        line-height: 1;
+      }
+    }
+  `;
+  document.head.appendChild(mobileHeaderStyle);
+
   const menuButton = document.querySelector('.menu-button');
   const menu = document.querySelector('.main-nav');
 
