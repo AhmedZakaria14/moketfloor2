@@ -1,8 +1,9 @@
 # Moket Floor
 
-Static Arabic RTL product catalogue for مفروشات موكيت أرضيات.
+Static Arabic RTL flooring storefront with the original brown and cream visual layout.
 
-- Product pages with Saudi-focused metadata and structured data
-- WebP images sourced from the supplied catalogue
-- WhatsApp enquiries instead of prices, cart or checkout
-- Sitemap, robots.txt, canonical URLs and responsive layout
+- Local product images, product pages and search/filter controls.
+- Order cart with quantities, removal and local persistence.
+- The complete order is sent to the existing sales WhatsApp number; prices and availability are confirmed by sales. No online payment is configured.
+- Rebuild: `node scripts/build-original-layout.mjs`
+- Audit: `node scripts/audit-site.mjs`

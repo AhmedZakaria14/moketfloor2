@@ -62,7 +62,6 @@ for (const path of htmlFiles) {
     if (url.startsWith('/') && !existsSync(localTarget(url))) fail(file, `broken internal link ${url}`);
   }
   if (/\b(?:SAR|ر\.س|ريال)\b/.test(html)) fail(file, 'currency value or label found');
-  if (/إضافة إلى السلة|add to cart|checkout|shoppingBag/i.test(html)) fail(file, 'cart or checkout copy found');
 }
 
 if (failures.length) {

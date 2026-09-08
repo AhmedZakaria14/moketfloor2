@@ -31,6 +31,7 @@ for (const id of new Set(products.flatMap((product) => product.imageIds))) {
 
 const icon = (name) => {
   const paths = {
+    cart: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>',
     whatsapp: '<path d="M20.52 3.48A11.82 11.82 0 0 0 12.08 0C5.52 0 .18 5.34.18 11.9c0 2.1.55 4.14 1.6 5.94L.08 24l6.3-1.65a11.9 11.9 0 0 0 5.69 1.45h.01c6.56 0 11.9-5.34 11.9-11.9 0-3.18-1.23-6.17-3.46-8.42Zm-8.44 18.31h-.01a9.86 9.86 0 0 1-5.02-1.38l-.36-.21-3.74.98 1-3.64-.24-.37a9.86 9.86 0 1 1 8.37 4.62Zm5.41-7.39c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.76.96-.94 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47a8.9 8.9 0 0 1-1.65-2.05c-.17-.3-.02-.45.13-.6.13-.13.3-.34.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.91-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.75-.72 2-1.41.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/>',
     phone: '<path d="M6.62 10.79a15.46 15.46 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/>',
     menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
@@ -62,7 +63,7 @@ const header = (active = '') => `
         <a ${active === 'about' ? 'aria-current="page"' : ''} href="/mfrwshat/">عن الموقع</a>
         <a ${active === 'contact' ? 'aria-current="page"' : ''} href="/mwkyt/">تواصل</a>
       </nav>
-      <a class="header-whatsapp" href="${wa()}" target="_blank" rel="noopener" aria-label="الاستفسار عبر واتساب">${icon('whatsapp')}</a>
+      <button class="header-cart" type="button" data-open-cart aria-label="فتح سلة الطلب">${icon('cart')}<span data-cart-count>0</span></button>
     </div>
   </header>`;
 
@@ -76,7 +77,7 @@ const footer = () => `
     </div>
     <div class="copyright">© ${new Date().getFullYear()} ${site.name}. جميع الحقوق محفوظة.</div>
   </footer>
-  <a class="floating-whatsapp" href="${wa()}" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">${icon('whatsapp')}</a>`;
+`;
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
@@ -107,7 +108,7 @@ const head = ({ title, description, path = '/', keywords = [], image, schema = [
   <link rel="alternate" hreflang="ar-SA" href="${canonical}">
   <link rel="alternate" hreflang="x-default" href="${canonical}">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/css/original-site.css?v=20260815-1">
+  <link rel="stylesheet" href="/assets/css/original-site.css?v=20260908-cart">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${site.name}">
@@ -130,7 +131,8 @@ const shell = ({ title, description, path, keywords, image, schema, active, body
   ${header(active)}
   <main id="content">${body}</main>
   ${footer()}
-  <script src="/assets/js/original-site.js" defer></script>
+  <script src="/assets/js/original-site.js?v=20260908-cart" defer></script>
+  <script src="/assets/js/cart.js?v=20260908-cart" defer></script>
 </body>
 </html>`;
 
@@ -139,7 +141,7 @@ const card = (product, index = 0) => {
   const search = [product.name, product.category, ...product.tags].join(' ');
   return `<article class="product-card" data-search="${esc(search)}" data-category="${esc(product.category)}">
     <a class="product-image" href="/products/${product.slug}/"><img src="${cover.src}" width="${cover.width}" height="${cover.height}" alt="${esc(product.imageAlt)}" loading="${index < 4 ? 'eager' : 'lazy'}" decoding="async"></a>
-    <div class="product-card-content"><p class="product-category">${esc(product.category)}</p><h3><a href="/products/${product.slug}/">${esc(product.cardName)}</a></h3><div class="product-card-links"><a href="/products/${product.slug}/">عرض التفاصيل</a><a class="card-whatsapp" href="${wa(product.cardName)}" target="_blank" rel="noopener" aria-label="الاستفسار عن ${esc(product.cardName)}">${icon('whatsapp')}</a></div></div>
+    <div class="product-card-content"><p class="product-category">${esc(product.category)}</p><h3><a href="/products/${product.slug}/">${esc(product.cardName)}</a></h3><div class="product-card-links"><a href="/products/${product.slug}/">عرض التفاصيل</a><button class="add-to-cart" type="button" data-add-cart="${esc(product.slug)}">${icon('cart')} إضافة إلى السلة</button></div></div>
   </article>`;
 };
 
@@ -217,7 +219,7 @@ for (const product of products) {
   const related = products.filter((candidate) => candidate.slug !== product.slug).slice(0, 4);
   const body = `
     <nav class="breadcrumbs" aria-label="مسار الصفحة"><a href="/">الرئيسية</a><span>/</span><a href="/sjad-alsjad/">تسوق</a><span>/</span><span>${esc(product.category)}</span></nav>
-    <section class="product-main"><div class="product-main-image"><img src="${cover.src}" width="${cover.width}" height="${cover.height}" alt="${esc(product.imageAlt)}" fetchpriority="high"></div><div class="product-main-copy"><p class="product-category">${esc(product.category)}</p><h1>${esc(product.name)}</h1><p class="product-lead">${esc(product.intro)}</p><div class="product-tags">${product.tags.map((tag) => `<span>${esc(tag)}</span>`).join('')}</div><a class="button button-whatsapp" href="${wa(product.cardName)}" target="_blank" rel="noopener">${icon('whatsapp')} الاستفسار عن المنتج</a><p class="inquiry-note">يتم تحديد التوفر والمواصفة ونطاق التوريد أو التركيب عند الاستفسار.</p></div></section>
+    <section class="product-main"><div class="product-main-image"><img src="${cover.src}" width="${cover.width}" height="${cover.height}" alt="${esc(product.imageAlt)}" fetchpriority="high"></div><div class="product-main-copy"><p class="product-category">${esc(product.category)}</p><h1>${esc(product.name)}</h1><p class="product-lead">${esc(product.intro)}</p><div class="product-tags">${product.tags.map((tag) => `<span>${esc(tag)}</span>`).join('')}</div><button class="button button-brown" type="button" data-add-cart="${esc(product.slug)}">${icon('cart')} إضافة إلى السلة</button><p class="inquiry-note">يتم تحديد التوفر والمواصفة ونطاق التوريد أو التركيب عند الاستفسار.</p></div></section>
     <section class="product-description"><div><p class="kicker">تفاصيل المنتج</p><h2>الوصف والمواصفات</h2>${product.paragraphs.map((paragraph) => `<p>${esc(paragraph)}</p>`).join('')}</div><aside><h2>المزايا</h2><ul>${product.features.map((feature) => `<li>${icon('check')} ${esc(feature)}</li>`).join('')}</ul><h2>الاستخدامات</h2><p>${product.applications.map(esc).join('، ')}</p></aside></section>
     <section class="gallery-section"><div class="section-title"><p>صور المنتج</p><h2>الكتالوج والتنفيذ</h2></div><div class="product-gallery">${gallery}</div></section>
     <section class="faq-section"><div class="section-title"><p>أسئلة شائعة</p><h2>معلومات قبل الطلب</h2></div><div class="faq-list">${product.faq.map(([question, answer], index) => `<details ${index === 0 ? 'open' : ''}><summary>${esc(question)}<span>+</span></summary><p>${esc(answer)}</p></details>`).join('')}</div></section>
@@ -244,10 +246,5 @@ const assetHeaders = [
 ];
 write(join(root, 'vercel.json'), JSON.stringify({ trailingSlash: true, redirects: redirects.map((source) => ({ source: `/${source}/`, destination: '/sjad-alsjad/', permanent: true })), headers: assetHeaders }, null, 2));
 
-// Assert the generated pages do not accidentally reintroduce commerce controls.
-for (const page of [join(root, 'index.html'), join(root, 'sjad-alsjad', 'index.html'), ...products.map((product) => join(root, 'products', product.slug, 'index.html'))]) {
-  const html = readFileSync(page, 'utf8');
-  if (/إضافة إلى السلة|add to cart|checkout|ر\.س|ريال/i.test(html)) throw new Error(`Commerce text found in ${page}`);
-}
-
-console.log(`Built the restored original layout with ${products.length} products.`);
+write(join(root, 'assets/js/cart-products.json'), JSON.stringify({whatsapp: site.whatsapp, products: products.map(product => ({id: product.slug, name: product.cardName, image: images.get(product.imageIds[0]).src}))}));
+console.log(`Built original storefront and order cart for ${products.length} products.`);
