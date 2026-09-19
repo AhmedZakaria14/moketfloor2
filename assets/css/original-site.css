@@ -173,6 +173,9 @@ h1, h2, h3 { line-height: 1.35; }
 .floating-whatsapp { position: fixed; z-index: 80; right: 20px; bottom: 20px; width: 56px; height: 56px; display: grid; place-items: center; color: var(--white); background: var(--whatsapp); border-radius: 50%; box-shadow: 0 8px 25px rgb(0 0 0 / 23%); }
 .floating-whatsapp:hover { transform: translateY(-2px); }
 .floating-whatsapp svg { width: 29px; height: 29px; }
+.floating-call { position: fixed; z-index: 80; right: 20px; bottom: 88px; width: 56px; height: 56px; display: grid; place-items: center; color: var(--white); background: var(--brown); border-radius: 50%; box-shadow: 0 8px 25px rgb(0 0 0 / 23%); transition: background .2s ease, transform .2s ease; }
+.floating-call:hover { color: var(--white); background: var(--brown-dark); transform: translateY(-2px); }
+.floating-call svg { width: 27px; height: 27px; }
 .not-found { min-height: 65vh; display: grid; place-items: center; padding: 80px 16px; text-align: center; }
 .not-found strong { display: block; color: var(--brown); font-size: clamp(90px, 18vw, 190px); font-weight: 400; line-height: 1; }
 .not-found h1 { font-size: 38px; font-weight: 400; }
@@ -222,6 +225,7 @@ h1, h2, h3 { line-height: 1.35; }
   .product-main-image { height: 430px; }
   .footer-layout { grid-template-columns: 1fr; }
   .floating-whatsapp { right: 14px; bottom: 14px; }
+  .floating-call { right: 14px; bottom: 82px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
