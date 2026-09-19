@@ -174,15 +174,64 @@ h1, h2, h3 { line-height: 1.35; }
 .footer-layout a { margin-bottom: 8px; }
 .footer-layout a:hover { color: var(--white); text-decoration: underline; }
 .footer-button { min-height: 42px; display: inline-flex; align-items: center; padding: 7px 20px; color: var(--white) !important; background: var(--brown); border-radius: 50px; text-decoration: none !important; }
-.copyright { width: min(100%, var(--content)); display: flex; flex-direction: column; align-items: center; gap: 15px; padding: 28px 0 20px; margin: 50px auto 0; border-top: 1px solid rgb(255 255 255 / 20%); font-size: 12px; text-align: center; }
-.nashar-hub-container { display: flex; align-items: center; justify-content: center; gap: 12px; font-family: "Cairo Original", "Cairo", Arial, sans-serif; }
-.design-text { color: #cfc3bb; font-size: 14px; }
-.nashar-btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; padding: 6px 16px; background: linear-gradient(to right, rgb(124 94 72 / 22%), rgb(124 94 72 / 10%)); border: 1px solid rgb(216 200 189 / 35%); border-radius: 8px; box-shadow: 0 1px 2px rgb(0 0 0 / 8%); text-decoration: none !important; transition: border-color .3s ease, transform .3s ease; }
-.nashar-text { position: relative; z-index: 1; color: #e8d8cc; font-size: 15px; font-weight: 700; transition: color .3s ease; }
-.hover-bg { position: absolute; inset: 0; background: var(--brown); transform: translateY(100%); transition: transform .3s ease; }
-.nashar-btn:hover { border-color: #d8c8bd; transform: translateY(-1px); }
-.nashar-btn:hover .nashar-text { color: var(--white); }
-.nashar-btn:hover .hover-bg { transform: translateY(0); }
+.copyright { width: min(100%, var(--content)); margin: 50px auto 0; font-size: 12px; }
+.ebftr2-footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 30px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.nashar-hub-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Cairo", sans-serif;
+}
+.design-text {
+  color: #9ca3af;
+  font-size: 14px;
+}
+.nashar-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: linear-gradient(to right, rgba(0, 217, 90, 0.1), rgba(0, 217, 90, 0.05));
+  border: 1px solid rgba(0, 217, 90, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none !important;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.nashar-text {
+  position: relative;
+  z-index: 10;
+  font-weight: 700;
+  color: #00d95a;
+  transition: color 0.3s ease;
+  font-size: 15px;
+}
+.hover-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 217, 90, 0.05);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+.nashar-btn:hover {
+  border-color: rgba(0, 217, 90, 0.5);
+  transform: translateY(-1px);
+}
+.nashar-btn:hover .nashar-text {
+  color: #fff;
+}
+.nashar-btn:hover .hover-bg {
+  transform: translateY(0);
+  background: #00d95a;
+}
 .floating-whatsapp { position: fixed; z-index: 80; right: 20px; bottom: 20px; width: 56px; height: 56px; display: grid; place-items: center; color: var(--white); background: var(--whatsapp); border-radius: 50%; box-shadow: 0 8px 25px rgb(0 0 0 / 23%); }
 .floating-whatsapp:hover { background: var(--whatsapp-dark); transform: translateY(-2px); }
 .floating-whatsapp svg { width: 29px; height: 29px; }
@@ -235,7 +284,6 @@ h1, h2, h3 { line-height: 1.35; }
   .product-main-image { height: 430px; }
   .footer-layout { grid-template-columns: 1fr; }
   .floating-whatsapp { right: 14px; bottom: 14px; }
-  .nashar-hub-container { flex-direction: column; gap: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
